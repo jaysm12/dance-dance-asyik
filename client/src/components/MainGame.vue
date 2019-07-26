@@ -54,6 +54,7 @@ export default {
         this.snackbar.condition = true
         this.snackbar.text = 'Nice !'
         this.snackbar.color = 'success'
+        this.$store.dispatch('updateScore')
       } else {
         this.snackbar.condition = true
         this.snackbar.text = 'Miss !'

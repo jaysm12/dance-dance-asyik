@@ -14,7 +14,9 @@ export default new Vuex.Store({
     isJoined: {
       status: false,
       room: '',
-      ready: false
+      ready: false,
+      key: '',
+      score: 0
     }
   },
   mutations: {
@@ -74,6 +76,7 @@ export default new Vuex.Store({
     joinRooms({state, commit}, payload) {
       let input = {}
       let key = payload.totalPlayers + 1
+      state.isJoined.key = key
       state.isJoined.status = true
       state.isJoined.room = payload.id
       input[key] = {
@@ -134,6 +137,21 @@ export default new Vuex.Store({
       .then(() => {
         console.log('berhasil ready update jadi tureeeeeeeeeeeeeeeeeeeeeeeee')
       })
+    },
+    updateScore({state, commit}, payload) {
+      console.log('saya kepangilll !!!!!!!!!')
+      let input = {}
+      state.isJoined.score += 1
+      input[state.isJoined.key] = {
+        name: state.loggedUser,
+        points: state.isJoined.score
+      }
+      console.log(input, 'UPDATESCORE')
+      db.collection('rooms').doc(state.gameRoom.id).set(input, {merge: true})
+      .then(() => {
+        console.log('mantap')
+      })
+      .catch(err => console.log(err))
     }
   }
 })
