@@ -4,10 +4,22 @@
       <v-card-title>Room {{ room.name }}</v-card-title>
       <v-card-text> {{room.totalPlayers}} player inside</v-card-text>
       <v-card-actions>
-        <v-btn   @click="main" 
+        <v-btn v-if="isJoined.status === false"  @click="join" 
+          elevation="6"
+          color="cyan lighten-1 white--text"
+        >Join Here</v-btn>
+        <v-btn v-if="isJoined.status === true && isJoined.room == room.id "
+          elevation="6"
+          color="green lighten-1 white--text"
+        >Joined</v-btn>
+        <v-btn v-if="isReady === true && isJoined.room == room.id"  @click="main" 
           elevation="6"
           color="red lighten-1 white--text"
         >Dance Here</v-btn>
+        <v-btn v-if="isJoined.status === true && isReady === false && isJoined.room == room.id"
+          elevation="6"
+          color="yellow lighten-1 white--text"
+        >Wait</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -17,6 +29,12 @@
 import { mapState, mapMutations, mapActions} from 'vuex'
 export default {
   name: 'cardRoom',
+  data: function () {
+    return {
+      isJoin: false,
+      isReady: false
+    }
+  },
   props: ['room'],
   methods : {
     main() {
@@ -26,10 +44,26 @@ export default {
       .then(() => {
         this.$router.push('/game')
       })
+    },
+    join() {
+      this.isJoin = true
+      this.$store.dispatch('snapGame', this.room.id)
+      .then( () => {
+        console.log('SNAP!!!')
+        console.log(this.isJoined)
+      })
+      this.$store.dispatch('joinRooms', this.room)
     }
   },
   computed: {
-    ...mapState(['rooms'])
+    ...mapState(['rooms', 'isJoined'])
+  },
+  created() {
+    // this.isJoin = this.isJoined 
+    console.log(this.room.totalPlayers)
+    if(this.room.totalPlayers >= 3){
+      this.isReady = true
+    }
   }
 }
 </script>
