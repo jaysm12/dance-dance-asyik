@@ -1,4 +1,7 @@
 <template>
+<<<<<<< HEAD
+  <div class="home">
+=======
   <div id="home">
     <div class="dance">
       <v-img
@@ -26,6 +29,7 @@
         Create and Play !
       </v-btn>
     </div>
+>>>>>>> development
   </div>
 </template>
 
@@ -36,6 +40,8 @@ export default {
   name: 'home',
   data () {
     return {
+<<<<<<< HEAD
+=======
       nameInput : ''
     }
   },
@@ -52,6 +58,7 @@ export default {
       this.$store.commit('MASUKUSER', this.nameInput)
       this.$router.push('/room')
       console.log('user masuk')
+>>>>>>> development
     }
   }
 }
