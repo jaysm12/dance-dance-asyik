@@ -3,8 +3,8 @@
     <h1>welcome {{loggedUser}}</h1>
     <h1 id="header" style="font-family: 'Russo One', sans-serif;">Choose Your Room</h1>
     <div id="roomBox">
-      <div v-for="(card, i) in rooms" :key="i">
-        <cardRoom :data="card" />
+      <div v-for="(room, i) in rooms" :key="i">
+        <cardRoom :room="room" />
       </div>
     </div>
   </div>

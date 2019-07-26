@@ -1,19 +1,29 @@
 <template>
   <div>
     <v-card width="300" height="110" id="cardChooseRoom">
-      <v-card-title>Room {{ data.name }}</v-card-title>
+      <v-card-title>Room {{ room.name }}</v-card-title>
       <!-- <v-card-text>2 player inside</v-card-text> -->
       <v-card-actions>
-        <v-btn text style="background-color : #FCE4EC">Dance Here</v-btn>
+        <v-btn text style="background-color : #FCE4EC" @click="main" >Dance Here</v-btn>
       </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions} from 'vuex'
 export default {
   name: 'cardRoom',
-  props: ['data']
+  props: ['room'],
+  methods : {
+    main() {
+      this.$store.commit('MAIN', room )
+      this.$router.push('/game')
+    }
+  },
+  computed: {
+    ...mapState(['rooms'])
+  }
 }
 </script>
 

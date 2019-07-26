@@ -1,15 +1,15 @@
 <template>
-    <div id="game">
+  <div id="game">
     <v-container grid-list-md text-left>
       <v-layout wrap>
         <v-flex xs2>
-          <Score></Score>
+          <Score class="side"></Score>
         </v-flex>
         <v-flex xs7>
           <MainGame></MainGame>
         </v-flex>
         <v-flex xs3>
-          <Chat></Chat>
+          <Chat class="side"></Chat>
         </v-flex>
       </v-layout>
     </v-container>
@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import Score from '../components/Score.vue'
-import MainGame from '../components/MainGame.vue'
-import Chat from '../components/Chat.vue'
+import Score from "../components/Score.vue";
+import MainGame from "../components/MainGame.vue";
+import Chat from "../components/Chat.vue";
 export default {
   components: {
     Score,
     MainGame,
     Chat
   }
-}
+};
 </script>
 
 <style>
@@ -48,5 +48,7 @@ export default {
   );
   height: 100vh;
 }
-
+.side {
+  opacity: 0.6;
+}
 </style>

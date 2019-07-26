@@ -19,8 +19,24 @@ export default new Vuex.Store({
       state.loggedUser = payload
       console.log(state.loggedUser)
       localStorage.setItem('user', this.state.loggedUser)
+    },
+    MAIN(state, payload) {
+      state.gameRoom = payload
+    },
+    GENERATENEWMOVES(state, payload) {
+      let moves = ['w', 'a', 's', 'd']
+      let result = ''
+      for(let i = 0 ;i < 10 ; i++) {
+        let random = moves[Math.floor(Math.random() * moves.length)]
+        result += random
+      }
+    },
+    INSERTGAMEROOM(state, payload) {
+      state.gameRoom = payload
+    },
+    INSERTROOMS(state, payload) {
+      state.rooms = payload
     }
-
   },
   actions: {
     snapRooms({state, commit}, payload) {
@@ -36,7 +52,7 @@ export default new Vuex.Store({
             })
             count++
           })
-          state.rooms = arr
+          commit('INSERTROOMS', arr)
         })
     },
     createRooms({state, commit}, payload) {
@@ -54,6 +70,19 @@ export default new Vuex.Store({
           console.log('player joined')
         })
         .catch(console.log(err))
+    },
+    snapGame({state, commit}, payload) {
+      db.collection('rooms').doc(payload)
+        .onSnapshot((doc) => {
+          gameRoom =  {
+            id: doc.id,
+            ...doc.data()
+          }
+          commit('INSERTGAMEROOM', gameRoom)
+        })
+    },
+    generateNewMoves({state, comit}, payload) {
+
     }
   }
 })
