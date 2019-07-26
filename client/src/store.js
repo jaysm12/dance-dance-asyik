@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import db from './config/firebase'
 import { stat } from 'fs';
-
+import router from './router'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -96,6 +96,9 @@ export default new Vuex.Store({
             }
             console.log(obj)
             commit('INSERTGAMEROOM', obj)
+            if(doc.data().ready) {
+              router.push('/game')
+            }
             resolve(true)
           })
       })
@@ -113,6 +116,14 @@ export default new Vuex.Store({
         .set({
           player
         })
+    },
+    updateMove({state, commit}, payload) {
+      const game = db.collection('rooms').doc(state.gameRoom.id)
+      game.update({ moveList : state.newMoves })
+      .then(() => {
+        console.log('move updated')
+      })
+      .catch(err => console.log(err))
     }
   }
 })
