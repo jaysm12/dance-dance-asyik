@@ -4,7 +4,7 @@
       <v-card-title>Room {{ room.name }}</v-card-title>
       <!-- <v-card-text>2 player inside</v-card-text> -->
       <v-card-actions>
-        <v-btn text style="background-color : #FCE4EC" @click="main" >Dance Here</v-btn>
+        <v-btn text style="background-color : #FCE4EC" @click="main">Dance Here</v-btn>
       </v-card-actions>
     </v-card>
   </div>

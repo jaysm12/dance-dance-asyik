@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     loggedUser: '',
     rooms: [],
-    gameRoom: {}
+    gameRoom: {},
+    newMoves : ''
   },
   mutations: {
     GETMOVES() {
@@ -28,8 +29,9 @@ export default new Vuex.Store({
       let result = ''
       for(let i = 0 ;i < 10 ; i++) {
         let random = moves[Math.floor(Math.random() * moves.length)]
-        result += random
+        result += random        
       }
+      state.newMoves = result
     },
     INSERTGAMEROOM(state, payload) {
       state.gameRoom = payload
@@ -43,24 +45,25 @@ export default new Vuex.Store({
       db.collection('rooms')
         .onSnapshot((querySnapshot) => {
           let arr = []
-          let count = 1
+          
           querySnapshot.forEach(doc => {
             arr.push({
-              name: count,
               id: doc.id,
               ...doc.data()
             })
-            count++
           })
           commit('INSERTROOMS', arr)
         })
     },
     createRooms({state, commit}, payload) {
+      commit('GENERATENEWMOVES')
       db.collection('rooms')
         .add({
+          name: payload,
           ready: false,
           roomMaster: state.loggedUser,
-          totalPlayers: 1
+          totalPlayers: 1,
+          moveList : state.newMoves
         })
     },
     joinRooms({state, commit}, payload) {

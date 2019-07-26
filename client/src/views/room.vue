@@ -3,6 +3,10 @@
     <div>
       <v-layout justify-end>
       <div class="my-2" style="padding-right : 25px;">
+        <modalCreate />
+        <!-- <v-btn @click="createRoom" large style="background-color : #FFCDD2;">Create Room</v-btn> -->
+      </div>
+      <div class="my-2" style="padding-right : 25px;">
         <v-btn @click="logout" large style="background-color : #FFCDD2;">Logout</v-btn>
       </div>
       </v-layout>
@@ -19,11 +23,13 @@
 
 <script>
 import cardRoom from '../components/cardRoom'
+import modalCreate from '../components/modalCreateRoom'
 import {mapState} from 'vuex'
 export default {
   name: "room",
   components: {
-    cardRoom
+    cardRoom,
+    modalCreate
   },
   methods: {
     logout() {
