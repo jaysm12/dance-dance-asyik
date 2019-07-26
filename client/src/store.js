@@ -10,7 +10,11 @@ export default new Vuex.Store({
     loggedUser: '',
     rooms: [],
     gameRoom: {},
-    newMoves : ''
+    newMoves : '',
+    isJoined: {
+      status: false,
+      room: ''
+    }
   },
   mutations: {
     GETMOVES() {
@@ -62,17 +66,25 @@ export default new Vuex.Store({
           name: payload,
           ready: false,
           roomMaster: state.loggedUser,
-          totalPlayers: 1,
+          totalPlayers: 0,
           moveList : state.newMoves
         })
     },
     joinRooms({state, commit}, payload) {
-      db.collection('rooms').doc(payload)
-        .set(gameRoom)
+      let input = {}
+      let key = payload.totalPlayers + 1
+      state.isJoined.status = true
+      state.isJoined.room = payload.id
+      input[key] = {
+        name : state.loggedUser,
+        points: 0
+      }
+      db.collection('rooms').doc(payload.id)
+        .set({...input, totalPlayers: key }, {merge: true})
         .then(() => {
-          console.log('player joined')
+          console.log('joined this room')
         })
-        .catch(console.log(err))
+        .catch(err => console.log(err))
     },
     snapGame({state, commit}, payload) {
       return new Promise((resolve, reject) => {
