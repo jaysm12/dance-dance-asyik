@@ -34,6 +34,7 @@ export default new Vuex.Store({
       state.newMoves = result
     },
     INSERTGAMEROOM(state, payload) {
+      console.log(payload, 'DARI COMMIT')
       state.gameRoom = payload
     },
     INSERTROOMS(state, payload) {
@@ -45,7 +46,6 @@ export default new Vuex.Store({
       db.collection('rooms')
         .onSnapshot((querySnapshot) => {
           let arr = []
-          
           querySnapshot.forEach(doc => {
             arr.push({
               id: doc.id,
@@ -75,17 +75,32 @@ export default new Vuex.Store({
         .catch(console.log(err))
     },
     snapGame({state, commit}, payload) {
-      db.collection('rooms').doc(payload)
-        .onSnapshot((doc) => {
-          gameRoom =  {
-            id: doc.id,
-            ...doc.data()
-          }
-          commit('INSERTGAMEROOM', gameRoom)
-        })
+      return new Promise((resolve, reject) => {
+        db.collection('rooms').doc(payload)
+          .onSnapshot((doc) => {
+            const obj = {
+              id: doc.id,
+              ...doc.data()
+            }
+            console.log(obj)
+            commit('INSERTGAMEROOM', obj)
+            resolve(true)
+          })
+      })
     },
-    generateNewMoves({state, comit}, payload) {
-
+    generateNewMoves({state, commit}, payload) {
+      let moves = ['w', 'a', 's', 'd']
+      let result = ''
+      for(let i = 0 ;i < 10 ; i++) {
+        let random = moves[Math.floor(Math.random() * moves.length)]
+        result += random
+      }
+    },
+    setPlayer({state, commit}, payload) {
+      db.collection('rooms').doc(payload)
+        .set({
+          player
+        })
     }
   }
 })

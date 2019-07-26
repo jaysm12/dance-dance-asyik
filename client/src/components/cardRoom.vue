@@ -1,10 +1,13 @@
 <template>
   <div>
-    <v-card width="300" height="110" id="cardChooseRoom">
+    <v-card width="300" height="150" id="cardChooseRoom">
       <v-card-title>Room {{ room.name }}</v-card-title>
-      <!-- <v-card-text>2 player inside</v-card-text> -->
+      <v-card-text> {{room.totalPlayers}} player inside</v-card-text>
       <v-card-actions>
-        <v-btn text style="background-color : #FCE4EC" @click="main">Dance Here</v-btn>
+        <v-btn   @click="main" 
+          elevation="6"
+          color="red lighten-1 white--text"
+        >Dance Here</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -17,8 +20,12 @@ export default {
   props: ['room'],
   methods : {
     main() {
-      this.$store.commit('MAIN', room )
-      this.$router.push('/game')
+      this.$store.commit('MAIN', room)
+      console.log(this.room.id)
+      this.$store.dispatch('snapGame', this.room.id)
+      .then(() => {
+        this.$router.push('/game')
+      })
     }
   },
   computed: {
