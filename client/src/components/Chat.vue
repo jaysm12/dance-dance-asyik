@@ -6,9 +6,7 @@
         <v-layout wrap>
         <v-flex offset-xs1>
         <ul style="list-style: none;">
-            <li><b>Aditya: </b>What inside chat?</li>
-            <li><b>Aditya: </b>What inside chat?</li>
-            <li><b>Aditya: </b>What inside chat?</li>
+            <li v-for="(chat, i) in chats" :key="i"><b>Aditya: </b>What inside chat?</li>
         </ul>
         </v-flex>
         </v-layout>
@@ -18,7 +16,11 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      chats: []
+    }
+  }
 }
 </script>
 

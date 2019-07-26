@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card dark style="height: 80vh;">
-    <v-img height="400px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
+    <v-card dark style="height: 80vh;"> 
+    <v-img height="400px" src="https://media.giphy.com/media/24owNmVY1AaOQXDDFj/giphy.gif"></v-img>
     <div style="text-align: center;">
       <v-btn large style="margin: 20px 0;">
         W A S D W A S D W A

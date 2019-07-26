@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="game">
     <v-container grid-list-md text-left>
       <v-layout wrap>
         <v-flex xs2>
@@ -30,5 +30,23 @@ export default {
 </script>
 
 <style>
+#game {
+  background-image: linear-gradient(
+    to right top,
+    #f03da3,
+    #de5bc0,
+    #c773d6,
+    #ae87e4,
+    #9897ea,
+    #85a6f3,
+    #74b3f8,
+    #69bff8,
+    #52cffe,
+    #41dfff,
+    #46eefa,
+    #5ffbf1
+  );
+  height: 100vh;
+}
 
 </style>
