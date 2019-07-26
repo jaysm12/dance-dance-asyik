@@ -1,6 +1,16 @@
 <template>
   <div id="room">
-    <h1 id="header" style="font-family: 'Russo One', sans-serif;">Choose Your Room</h1>
+    <div>
+      <v-layout justify-end>
+      <div class="my-2" style="padding-right : 25px;">
+        <v-btn @click="logout" large style="background-color : #FFCDD2;">Logout</v-btn>
+      </div>
+      </v-layout>
+      <h1
+        id="header"
+        style="font-family: 'Russo One', sans-serif; text-align: center;"
+      >Choose Your Room</h1>
+    </div>
     <div id="roomBox">
       <div v-for="(card, i) in rooms" :key="i">
         <cardRoom :data="card" />
@@ -10,27 +20,33 @@
 </template>
 
 <script>
-import cardRoom from '../components/cardRoom'
+import cardRoom from "../components/cardRoom";
 export default {
-  name: 'room',
+  name: "room",
   components: {
     cardRoom
   },
-  data () {
+  data() {
     return {
-      rooms: ['First', 'Second', 'Third', 'Fourth']
+      rooms: ["First", "Second", "Third", "Fourth"]
+    };
+  },
+  methods: {
+    logout() {
+      // console.log("triggered logout");
+      localStorage.clear();
+      this.$router.push("/");
     }
   },
   created() {
-    if(localStorage.getItem('user')) {
-      this.$router.push('/room')
-      this.$store.commit('MASUKUSER', localStorage.getItem('user'))
+    if (localStorage.getItem("user")) {
+      this.$router.push("/room");
+      this.$store.commit("MASUKUSER", localStorage.getItem("user"));
     } else {
-      this.$router.push('/')
+      this.$router.push("/");
     }
   }
-
-}
+};
 </script>
 
 <style scoped>
@@ -39,6 +55,7 @@ export default {
 }
 #header {
   padding-top: 90px;
+  text-align: center;
 }
 #room {
   width: 100%;
