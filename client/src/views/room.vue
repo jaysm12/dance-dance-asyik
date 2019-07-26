@@ -3,13 +3,6 @@
     <h1 id="header" style="font-family: 'Russo One', sans-serif;">Choose Your Room</h1>
     <div id="roomBox">
       <div v-for="(card, i) in rooms" :key="i">
-        <!-- <v-card width="300" height="110" id="cardChooseRoom">
-          <v-card-title>First Room</v-card-title>
-          <v-card-text>2 player inside</v-card-text>
-          <v-card-actions>
-            <v-btn text style="background-color : #FCE4EC">Dance Here</v-btn>
-          </v-card-actions> -->
-        <!-- </v-card> -->
         <cardRoom :data="card" />
       </div>
     </div>
