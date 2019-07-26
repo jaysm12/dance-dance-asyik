@@ -20,6 +20,14 @@ export default {
     return {
       rooms: ['First', 'Second', 'Third', 'Fourth']
     }
+  },
+  created() {
+    if(localStorage.getItem('user')) {
+      this.$router.push('/room')
+      this.$store.commit('MASUKUSER', localStorage.getItem('user'))
+    } else {
+      this.$router.push('/')
+    }
   }
 
 }
