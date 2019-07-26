@@ -111,7 +111,7 @@ export default {
         arrowList += a;
       }
       
-      return arrowList;
+        return arrowList;
     },
     ...mapState(["rooms", "gameRoom"])
   }
