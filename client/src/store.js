@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import db from './config/firebase'
 import { stat } from 'fs';
-
+import router from './router'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -63,16 +63,26 @@ export default new Vuex.Store({
           ready: false,
           roomMaster: state.loggedUser,
           totalPlayers: 1,
-          moveList : state.newMoves
+          moveList : state.newMoves,
+          '1' : {
+            name : state.loggedUser,
+            points: 0
+          }
         })
     },
     joinRooms({state, commit}, payload) {
+      let input = {}
+      let key = payload.totalPlayers + 1
+      input[key] = {
+        name : state.loggedUser,
+        points: 0
+      }
       db.collection('rooms').doc(payload)
-        .set(gameRoom)
+        .set(input, {merge: true})
         .then(() => {
-          console.log('player joined')
+          console.log('joined this room')
         })
-        .catch(console.log(err))
+        .catch(err => console.log(err))
     },
     snapGame({state, commit}, payload) {
       return new Promise((resolve, reject) => {
@@ -84,6 +94,9 @@ export default new Vuex.Store({
             }
             console.log(obj)
             commit('INSERTGAMEROOM', obj)
+            if(doc.data().ready) {
+              router.push('/game')
+            }
             resolve(true)
           })
       })
@@ -101,6 +114,14 @@ export default new Vuex.Store({
         .set({
           player
         })
+    },
+    updateMove({state, commit}, payload) {
+      const game = db.collection('rooms').doc(state.gameRoom.id)
+      game.update({ moveList : state.newMoves })
+      .then(() => {
+        console.log('move updated')
+      })
+      .catch(err => console.log(err))
     }
   }
 })

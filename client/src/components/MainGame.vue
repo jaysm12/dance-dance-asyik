@@ -20,6 +20,14 @@
         </form>
       </div>
     </v-card>
+    <v-snackbar
+      v-model="snackbar.condition"
+      top
+      :color="snackbar.color"
+      timeout="500"
+    >
+      {{snackbar.text}}
+    </v-snackbar>
   </div>
 </template>
 
@@ -29,16 +37,28 @@ export default {
   data() {
     return {
       moves: "",
-      userMoves: ""
+      userMoves: "",
+      snackbar: {
+        condition: false,
+        text: '',
+        color: ''
+      }
     };
   },
   methods: {
     sendMoves() {
       if(this.moves.toLowerCase() == this.gameRoom.moveList.toLowerCase()) {
-        alert('benar')
+        this.$store.commit('GENERATENEWMOVES')
+        this.$store.dispatch('updateMove')
+        this.snackbar.condition = true
+        this.snackbar.text = 'Nice !'
+        this.snackbar.color = 'success'
       } else {
-        this.moves = ''
+        this.snackbar.condition = true
+        this.snackbar.text = 'Miss !'
+        this.snackbar.color = 'error'
       }
+      this.moves = ''
     }
   },
   created() {
@@ -47,14 +67,14 @@ export default {
     //
     audio.src = source;
     audio.autoplay = true;
-    console.log("Music On");
+    
     audio.load();
     audio.play();
   },
   computed: {
     arrow() {
       let arrowList = "";
-      console.log(this.gameRoom.moveList, 'dari maingame.vue');
+      
       for (let i = 0; i < this.gameRoom.moveList.length; i++) {
         let a = this.gameRoom.moveList[i].toLowerCase();
         if (a === "w") {
@@ -70,7 +90,7 @@ export default {
         }
         arrowList += a;
       }
-      console.log(arrowList);
+      
       return arrowList;
     },
     arrowUser() {
@@ -90,7 +110,7 @@ export default {
         } 
         arrowList += a;
       }
-      console.log(arrowList);
+      
       return arrowList;
     },
     ...mapState(["rooms", "gameRoom"])
