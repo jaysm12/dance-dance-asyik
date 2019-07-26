@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-card width="300" height="110" id="cardChooseRoom">
+    <v-card width="300" id="cardChooseRoom">
       <v-card-title>{{ data }} Room</v-card-title>
-      <!-- <v-card-text>2 player inside</v-card-text> -->
+      <v-card-text>2 player inside</v-card-text>
       <v-card-actions>
         <v-btn text style="background-color : #FCE4EC">Dance Here</v-btn>
       </v-card-actions>
@@ -13,7 +13,12 @@
 <script>
 export default {
   name: 'cardRoom',
-  props: ['data']
+  props: ['data'],
+  data() {
+    return {
+      
+    }    
+  }
 }
 </script>
 
