@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     loggedUser: '',
-    rooms: '',
+    rooms: [],
     gameRoom: {}
   },
   mutations: {
@@ -27,11 +27,14 @@ export default new Vuex.Store({
       db.collection('rooms')
         .onSnapshot((querySnapshot) => {
           let arr = []
+          let count = 1
           querySnapshot.forEach(doc => {
             arr.push({
+              name: count,
               id: doc.id,
               ...doc.data()
             })
+            count++
           })
           state.rooms = arr
         })

@@ -1,5 +1,6 @@
 <template>
   <div id="room">
+    <h1>welcome {{loggedUser}}</h1>
     <h1 id="header" style="font-family: 'Russo One', sans-serif;">Choose Your Room</h1>
     <div id="roomBox">
       <div v-for="(card, i) in rooms" :key="i">
@@ -11,6 +12,7 @@
 
 <script>
 import cardRoom from '../components/cardRoom'
+import {mapState} from 'vuex'
 export default {
   name: 'room',
   components: {
@@ -18,16 +20,20 @@ export default {
   },
   data () {
     return {
-      rooms: ['First', 'Second', 'Third', 'Fourth']
+      
     }
   },
   created() {
     if(localStorage.getItem('user')) {
       this.$router.push('/room')
       this.$store.commit('MASUKUSER', localStorage.getItem('user'))
+      this.$store.dispatch('snapRooms')
     } else {
       this.$router.push('/')
     }
+  },
+  computed : {
+    ...mapState(['loggedUser', 'rooms'])
   }
 
 }
@@ -41,6 +47,7 @@ export default {
   padding-top: 90px;
 }
 #room {
+  text-align: center;
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(
