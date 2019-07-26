@@ -11,10 +11,11 @@
           color="pink--text"
         >{{arrowUser}}</v-card>
         <form action="#" @submit.prevent="sendMoves">
-          <input
+          <input id="playerMove"
             v-model="moves"
             type="text"
-            style="color:#424242; width: 100%; border: 1px solid #424232;"
+            style="color:#424242; border: 1px solid #424232;" 
+            maxlength="10"           
             autofocus
           />
         </form>
@@ -101,5 +102,7 @@ export default {
 <style>
 .arrow {
   font-size: 30px;
+}
+#playerMove {
 }
 </style>

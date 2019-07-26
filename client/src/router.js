@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Game from './views/Game.vue'
 import room from './views/room.vue'
+import result from './views/result.vue'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/room',
       name: 'room',
       component: room
+    },
+    {
+      path: '/result',
+      name : 'result',
+      component : result
     }
   ]
 })

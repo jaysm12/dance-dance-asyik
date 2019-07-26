@@ -2,13 +2,13 @@
   <div id="room">
     <div>
       <v-layout justify-end>
-      <div class="my-2" style="padding-right : 25px;">
-        <modalCreate />
-        <!-- <v-btn @click="createRoom" large style="background-color : #FFCDD2;">Create Room</v-btn> -->
-      </div>
-      <div class="my-2" style="padding-right : 25px;">
-        <v-btn @click="logout" large style="background-color : #FFCDD2;">Logout</v-btn>
-      </div>
+        <div class="my-2" style="padding-right : 25px;">
+          <modalCreate />
+          <!-- <v-btn @click="createRoom" large style="background-color : #FFCDD2;">Create Room</v-btn> -->
+        </div>
+        <div class="my-2" style="padding-right : 25px;">
+          <v-btn @click="logout" large style="background-color : #FFCDD2;">Logout</v-btn>
+        </div>
       </v-layout>
       <h1>welcome {{loggedUser}}</h1>
       <h1 id="header" style="font-family: 'Russo One', sans-serif;">Choose Your Room</h1>
@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import cardRoom from '../components/cardRoom'
-import modalCreate from '../components/modalCreateRoom'
-import {mapState} from 'vuex'
+import cardRoom from "../components/cardRoom";
+import modalCreate from "../components/modalCreateRoom";
+import { mapState } from "vuex";
 export default {
   name: "room",
   components: {
@@ -42,13 +42,13 @@ export default {
     if (localStorage.getItem("user")) {
       this.$router.push("/room");
       this.$store.commit("MASUKUSER", localStorage.getItem("user"));
-      this.$store.dispatch('snapRooms')
+      this.$store.dispatch("snapRooms");
     } else {
       this.$router.push("/");
     }
   },
-  computed : {
-    ...mapState(['loggedUser', 'rooms'])
+  computed: {
+    ...mapState(["loggedUser", "rooms"])
   }
 };
 </script>
