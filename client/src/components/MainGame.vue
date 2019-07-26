@@ -3,7 +3,13 @@
     <v-card dark style="height: 80vh;">
       <v-img height="400px" src="https://media.giphy.com/media/24owNmVY1AaOQXDDFj/giphy.gif"></v-img>
       <div style="text-align: center;">
-        <v-btn large style="margin: 20px 0;">{{arrow}}</v-btn>
+        <v-card class="arrow" style="margin-top: 40px;" elevation="7">{{arrow}}</v-card>
+        <v-card
+          class="arrow"
+          style="margin-top: 40px;"
+          elevation="7"
+          color="pink--text"
+        >{{arrowUser}}</v-card>
         <form action="#" @submit.prevent="sendMoves">
           <input
             v-model="moves"
@@ -23,13 +29,16 @@ export default {
   data() {
     return {
       moves: "",
-      moveList: "W A S D W A S D W A"
+      userMoves: ""
     };
   },
   methods: {
     sendMoves() {
-      console.log(this.moves);
-      this.moves = "";
+      if(this.moves.toLowerCase() == this.gameRoom.moveList.toLowerCase()) {
+        alert('benar')
+      } else {
+        this.moves = ''
+      }
     }
   },
   created() {
@@ -43,21 +52,42 @@ export default {
     audio.play();
   },
   computed: {
-    arrow: function() {
+    arrow() {
       let arrowList = "";
-      for (let i = 0; i < this.moveList.length; i++) {
-        let a = this.moveList[i];
+      console.log(this.gameRoom.moveList, 'dari maingame.vue');
+      for (let i = 0; i < this.gameRoom.moveList.length; i++) {
+        let a = this.gameRoom.moveList[i].toLowerCase();
         if (a === "w") {
-          a = "⬆";
-        } else if (a === "a") {
-          a = "➡";
-        } else if (a === "s") {
-          a = "⬅";
+          a = " ⬆";
         } else if (a === "d") {
-          a = "⬇";
+          a = " ➡";
+        } else if (a === "a") {
+          a = " ⬅";
+        } else if (a === "s") {
+          a = " ⬇";
         } else {
           a = " ";
         }
+        arrowList += a;
+      }
+      console.log(arrowList);
+      return arrowList;
+    },
+    arrowUser() {
+      let arrowList = "";
+      for (let i = 0; i < this.moves.length; i++) {
+        let a = this.moves[i].toLowerCase();
+        if (a === "w") {
+          a = " ⬆"; 
+        } else if (a === "d") {
+          a = " ➡";
+        } else if (a === "a") {
+          a = " ⬅";
+        } else if (a === "s") {
+          a = " ⬇";
+        } else {
+          a = " ";
+        } 
         arrowList += a;
       }
       console.log(arrowList);
@@ -69,7 +99,7 @@ export default {
 </script>
 
 <style>
-#arrowSymbol {
-  font-size: "30px";
+.arrow {
+  font-size: 30px;
 }
 </style>
