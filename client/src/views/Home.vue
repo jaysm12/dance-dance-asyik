@@ -1,30 +1,15 @@
 <template>
   <div id="home">
     <div class="dance">
-      <v-img
-        src="https://i.gifer.com/7Uz.gif"
-      ></v-img>
-      <v-img
-        src="https://i.gifer.com/6os.gif"
-      ></v-img>
+      <v-img src="https://i.gifer.com/7Uz.gif"></v-img>
+      <v-img src="https://i.gifer.com/6os.gif"></v-img>
     </div>
     <div id="form">
-      <p id="welcome">DANCE DANCE ASYIK</p>
+      <p class="welcome">DANCE-DANCE ASYIK</p>
       <div id="input-name">
-        <v-text-field
-          placeholder="Input name.."
-          rounded
-          solo
-          v-model="nameInput"
-        ></v-text-field>
+        <v-text-field placeholder="Input name.." rounded solo v-model="nameInput"></v-text-field>
       </div>
-      <v-btn 
-        id="btn"
-        color="red white--text"
-        @click="masukUser" 
-        >
-        Create and Play !
-      </v-btn>
+      <v-btn id="btn" color="red white--text" @click="masukUser">Create and Play !</v-btn>
     </div>
   </div>
 </template>
@@ -33,44 +18,44 @@
 // @ is an alias to /src
 
 export default {
-  name: 'home',
-  data () {
+  name: "home",
+  data() {
     return {
-      nameInput : ''
-    }
+      nameInput: ""
+    };
   },
   created() {
-    if(localStorage.getItem('user')) {
-      this.$router.push('/room')
-      this.$store.commit('MASUKUSER', localStorage.getItem('user'))
+    if (localStorage.getItem("user")) {
+      this.$router.push("/room");
+      this.$store.commit("MASUKUSER", localStorage.getItem("user"));
     } else {
-      this.$router.push('/')
+      this.$router.push("/");
     }
   },
-  methods : {
+  methods: {
     masukUser() {
-      this.$store.commit('MASUKUSER', this.nameInput)
-      this.$router.push('/room')
-      console.log('user masuk')
+      this.$store.commit("MASUKUSER", this.nameInput);
+      this.$router.push("/room");
+      console.log("user masuk");
     }
   }
-}
+};
 </script>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Londrina+Shadow&display=swap');
-  .dance {
-    display: flex;
-    /* width: 100%; */
-  }
-  #home {
-    width: 100%;
-    height: 100%;
-    background-color: #546E7A;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: linear-gradient(
+@import url("https://fonts.googleapis.com/css?family=Monoton&display=swap");
+.dance {
+  display: flex;
+  /* width: 100%; */
+}
+#home {
+  width: 100%;
+  height: 100%;
+  background-color: #546e7a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
     to right top,
     #f03da3,
     #de5bc0,
@@ -85,13 +70,22 @@ export default {
     #46eefa,
     #5ffbf1
   );
-  }
+}
 
-  #welcome {
-    font-family: 'Londrina Shadow', cursive;
-    font-size: 70px;
-    color: #f03da3;
-  }
-
+.welcome {
+  font-family: "Monoton", cursive;
+  font-size: 60px;
+  background: linear-gradient(
+    to right top,
+    #1f154f,
+    #7f0853,
+    #bb3432,
+    #c38000,
+    #8dc905
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1em;
+}
 </style>
 
