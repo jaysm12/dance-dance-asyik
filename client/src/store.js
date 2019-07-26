@@ -13,7 +13,8 @@ export default new Vuex.Store({
     newMoves : '',
     isJoined: {
       status: false,
-      room: ''
+      room: '',
+      ready: false
     }
   },
   mutations: {
@@ -90,12 +91,14 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         db.collection('rooms').doc(payload)
           .onSnapshot((doc) => {
+            console.log('snapgame ketrigger')
             const obj = {
               id: doc.id,
               ...doc.data()
             }
-            console.log(obj)
+            
             commit('INSERTGAMEROOM', obj)
+            console.log(doc.data().ready)
             if(doc.data().ready) {
               router.push('/game')
             }
@@ -124,6 +127,13 @@ export default new Vuex.Store({
         console.log('move updated')
       })
       .catch(err => console.log(err))
+    },
+    updateReady({state, commit}, payload) {
+      const game = db.collection('rooms').doc(payload.id)
+      game.update({ready : true})
+      .then(() => {
+        console.log('berhasil ready update jadi tureeeeeeeeeeeeeeeeeeeeeeeee')
+      })
     }
   }
 })

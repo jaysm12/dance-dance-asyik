@@ -40,10 +40,7 @@ export default {
     main() {
       this.$store.commit('MAIN', room)
       console.log(this.room.id)
-      this.$store.dispatch('snapGame', this.room.id)
-      .then(() => {
-        this.$router.push('/game')
-      })
+      this.$store.dispatch('updateReady', this.room)
     },
     join() {
       this.isJoin = true
@@ -53,6 +50,9 @@ export default {
         console.log(this.isJoined)
       })
       this.$store.dispatch('joinRooms', this.room)
+      if(this.room.totalPlayers >= 2){
+        this.isReady = true
+      }
     }
   },
   computed: {
