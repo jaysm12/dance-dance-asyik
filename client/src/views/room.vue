@@ -6,30 +6,24 @@
         <v-btn @click="logout" large style="background-color : #FFCDD2;">Logout</v-btn>
       </div>
       </v-layout>
-      <h1
-        id="header"
-        style="font-family: 'Russo One', sans-serif; text-align: center;"
-      >Choose Your Room</h1>
+      <h1>welcome {{loggedUser}}</h1>
+      <h1 id="header" style="font-family: 'Russo One', sans-serif;">Choose Your Room</h1>
     </div>
     <div id="roomBox">
-      <div v-for="(card, i) in rooms" :key="i">
-        <cardRoom :data="card" />
+      <div v-for="(room, i) in rooms" :key="i">
+        <cardRoom :room="room" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import cardRoom from "../components/cardRoom";
+import cardRoom from '../components/cardRoom'
+import {mapState} from 'vuex'
 export default {
   name: "room",
   components: {
     cardRoom
-  },
-  data() {
-    return {
-      rooms: ["First", "Second", "Third", "Fourth"]
-    };
   },
   methods: {
     logout() {
@@ -42,9 +36,13 @@ export default {
     if (localStorage.getItem("user")) {
       this.$router.push("/room");
       this.$store.commit("MASUKUSER", localStorage.getItem("user"));
+      this.$store.dispatch('snapRooms')
     } else {
       this.$router.push("/");
     }
+  },
+  computed : {
+    ...mapState(['loggedUser', 'rooms'])
   }
 };
 </script>
@@ -58,6 +56,7 @@ export default {
   text-align: center;
 }
 #room {
+  text-align: center;
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(

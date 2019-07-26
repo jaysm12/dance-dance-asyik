@@ -1,5 +1,5 @@
 <template>
-  <v-card dark style="height: 80vh;">
+  <v-card style="height: 80vh;">
     <v-card-title>Live Chat</v-card-title>
       <v-divider class="mx-0"></v-divider>
         <div style="padding: 20px 0;">
